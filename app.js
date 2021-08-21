@@ -3,6 +3,7 @@ let app = new (express);
 require('dotenv').config();
 
 const cat =require('./database/cat');
+const product = require('./database/product')
 /*
 let catObj={
     id:2,
@@ -28,11 +29,29 @@ cat.update(catObj)
 cat.destroy('60fe7f58b1422e16bcc229ee')
 .then(res=>console.log(res))
 .catch(err=>console.log(err));
-*/
+
 
 let seedCat = require('./database/seeder')
 
 seedCat.seedCat();
+
+let catObj={
+    cat_id:1,
+    name:'Mac Computer',
+    price:200,
+    image:'computer.png',
+    description:'test',
+    since:Date.now()
+}
+
+
+let seedProduct = require('./database/seeder');
+seedProduct.seedProduct();
+*/
+
+product.paginate(5,50)
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err));
 
 app.listen(process.env.PORT,()=>console.log(`Server is starting at Port at ${process.env.PORT}`));
 

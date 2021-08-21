@@ -54,6 +54,22 @@ let destroy = (id)=>{
     
 }
 
+let getpost =(localId,foreignId,table)=>{
+    return new Promise((resolve,reject)=>{
+        Cat.aggregate([{
+            $lookup:{
+                from:table,
+                localField:localId,
+                foreignField:foreignId,
+                as:'CatPosts'
+            }
+        }]).exec((err,data)=>{
+            if(err) reject(err);
+            resolve(data);
+        })
+    })
+}
+
 module.exports={
-    all,save,update,destroy
+    all,save,update,destroy,getpost
 }
